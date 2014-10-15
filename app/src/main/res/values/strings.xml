@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">My First App</string>
+    <string name="app_name">Running Trainer</string>
     <string name="run_length">Sprint length in seconds</string>
     <string name="rest_length">Resting length in seconds</string>
     <string name="number_of_reps">Number of rounds</string>
     <string name="speed">Speed:<!-- Comment? TODO --> Duration of one km in minutes</string>
     <string name="button_send">Start!</string>
     <string name="action_settings">Settings</string>
-    <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_main">Set Desired Speed</string>
     <string name="hello_world">Hello world!</string>
-    <string name="title_activity_display_message">My Message</string>
+    <string name="title_activity_display_message">Maintain Speed</string>
 
 </resources>

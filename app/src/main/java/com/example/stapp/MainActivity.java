@@ -8,9 +8,7 @@ import android.view.View;
 import android.widget.EditText;
 
 public class MainActivity extends Activity {
-	public final static String NUMREPS_MESSAGE = "com.example.myfirstapp.NUMREPS_MESSAGE";
-	public final static String RUNLEN_MESSAGE = "com.example.myfirstapp.RUNLEN_MESSAGE";
-	public final static String RESTLEN_MESSAGE = "com.example.myfirstapp.RESTLEN_MESSAGE";
+
 	public final static String SPEED_MESSAGE = "com.example.myfirstapp.SPEED_MESSAGE";
 
 	@Override
@@ -29,18 +27,10 @@ public class MainActivity extends Activity {
 	/** Called when the user clicks the Send button */
 	public void sendMessage(View view) {
 		Intent intent = new Intent(this, DisplayMessageActivity.class);
-		int numReps = Integer
-				.parseInt(((EditText) findViewById(R.id.NumofReps)).getText()
-						.toString());
-		int runL = Integer.parseInt(((EditText) findViewById(R.id.RunLenght))
-				.getText().toString());
-		int restL = Integer.parseInt(((EditText) findViewById(R.id.RestLength))
-				.getText().toString());
+
 		double speed = Double.parseDouble(((EditText) findViewById(R.id.Speed))
 				.getText().toString());
-		intent.putExtra(NUMREPS_MESSAGE, numReps);
-		intent.putExtra(RUNLEN_MESSAGE, runL);
-		intent.putExtra(RESTLEN_MESSAGE, restL);
+
 		intent.putExtra(SPEED_MESSAGE, speed);
 		startActivity(intent);
 	}

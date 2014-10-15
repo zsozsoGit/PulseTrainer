@@ -1,34 +1,34 @@
 package com.example.stapp;
 
-import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
-import android.os.Bundle;
-import android.os.Vibrator;
-import android.app.Activity;
-import android.view.MenuItem;
-import android.widget.TextView;
-import android.widget.Toast;
-import android.support.v4.app.NavUtils;
-import android.text.InputFilter.LengthFilter;
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Build;
+import android.os.Bundle;
+import android.os.Vibrator;
+import android.support.v4.app.NavUtils;
+import android.view.MenuItem;
+import android.widget.TextView;
+import android.widget.Toast;
 
 public class DisplayMessageActivity extends Activity {
-	Context context;
-	double previousSpeedInMinutespKm = 0;
-	float currentSpeed = 0;
-	final float cRecGoldenRatio = (float) ((float) 2 / (1 + Math.sqrt(5)));
+	private Context context;
+	private double previousSpeedInMinutesPerKm = 0;
+	private float currentSpeed = 0;
+	private final float cRecGoldenRatio = (float) ((float) 2 / (1 + Math.sqrt(5)));
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		final Vibrator instantVibr = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+		final Vibrator instantVibrator;
+        instantVibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 
-		// Get the message from the intent
+        /* Get the message from the intent */
 		Intent intent = getIntent();
 		final double speed = intent.getDoubleExtra(MainActivity.SPEED_MESSAGE, 0);
 		if (speed == 0) {
@@ -37,6 +37,7 @@ public class DisplayMessageActivity extends Activity {
 
 		// Create the text view
 		final TextView textView = new TextView(this);
+        textView.setTextSize(12);
 		textView.setText(Double.toString(speed));
 
 		// Set the text view as the activity layout
@@ -46,21 +47,21 @@ public class DisplayMessageActivity extends Activity {
 		final LocationListener locationListener = new LocationListener() {
 			@Override
 			public void onLocationChanged(Location location) {
-				currentSpeed = cRecGoldenRatio * location.getSpeed() + currentSpeed * (1 - cRecGoldenRatio);
+                currentSpeed = (cRecGoldenRatio * location.getSpeed()) + (currentSpeed * (1 - cRecGoldenRatio));
 				if (currentSpeed > 0.1) {
 					double speedInMinutesPerKm = (1000 / 60) / currentSpeed;
-					textView.setText("Current speed (Minutes to run a km): " + speedInMinutesPerKm);
+					textView.setText(String.format("Current speed (Minutes to run a km): %.2f", speedInMinutesPerKm));
 					// Faster means smaller value in this case
-					if ((speedInMinutesPerKm <= speed) && (previousSpeedInMinutespKm > speed)) {
+					if ((speedInMinutesPerKm <= speed) && (previousSpeedInMinutesPerKm > speed)) {
 						textView.setTextColor(Color.GREEN);
 						
-						instantVibr.vibrate(new long[] { 0, 100, 50, 100 }, -1);
+						instantVibrator.vibrate(new long[]{0, 100, 50, 100}, -1);
 					}
-					if ((speedInMinutesPerKm > speed) && (previousSpeedInMinutespKm <= speed)) {
+					if ((speedInMinutesPerKm > speed) && (previousSpeedInMinutesPerKm <= speed)) {
 						textView.setTextColor(Color.RED);
-						instantVibr.vibrate(1000);
+						instantVibrator.vibrate(1000);
 					}
-					previousSpeedInMinutespKm = speedInMinutesPerKm;
+					previousSpeedInMinutesPerKm = speedInMinutesPerKm;
 				}
 			}
 
