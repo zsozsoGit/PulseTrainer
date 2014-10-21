@@ -11,5 +11,6 @@
     <string name="title_activity_main">Set Desired Speed</string>
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_display_message">Maintain Speed</string>
+    <string name="BigText">Large Text</string>
 
 </resources>
