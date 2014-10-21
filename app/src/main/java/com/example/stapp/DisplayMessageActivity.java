@@ -22,9 +22,11 @@ public class DisplayMessageActivity extends Activity {
 	private float currentSpeed = 0;
 	private final float cRecGoldenRatio = (float) ((float) 2 / (1 + Math.sqrt(5)));
 
-	@Override
+    TextView textView;
+    @Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_display_message);
 		final Vibrator instantVibrator;
         instantVibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 
@@ -36,12 +38,11 @@ public class DisplayMessageActivity extends Activity {
 		}
 
 		// Create the text view
-		final TextView textView = new TextView(this);
-        textView.setTextSize(12);
+        textView = (TextView) findViewById(R.id.textView1);
+        textView.setTextSize(120);
 		textView.setText(Double.toString(speed));
 
 		// Set the text view as the activity layout
-		setContentView(textView);
 		final LocationManager locationManager = (LocationManager) super.getSystemService(Context.LOCATION_SERVICE);
 
 		final LocationListener locationListener = new LocationListener() {
@@ -80,11 +81,8 @@ public class DisplayMessageActivity extends Activity {
 		try {
 			locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 2000, 0, locationListener);
 		} catch (Exception e) {
-			// Toast.makeText(context, "Exception: " + e.toString(),
-			// Toast.LENGTH_LONG).show();
+
 		}
-		// WAIT for restlength
-		// END REPEAT
 
 	}
 
