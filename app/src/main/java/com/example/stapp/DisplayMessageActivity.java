@@ -17,12 +17,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class DisplayMessageActivity extends Activity {
-	private Context context;
+    private final float cRecGoldenRatio = (float) ((float) 2 / (1 + Math.sqrt(5)));
+    TextView textView;
+    private Context context;
 	private double previousSpeedInMinutesPerKm = 0;
 	private float currentSpeed = 0;
-	private final float cRecGoldenRatio = (float) ((float) 2 / (1 + Math.sqrt(5)));
 
-    TextView textView;
     @Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -51,8 +51,8 @@ public class DisplayMessageActivity extends Activity {
                 currentSpeed = (cRecGoldenRatio * location.getSpeed()) + (currentSpeed * (1 - cRecGoldenRatio));
 				if (currentSpeed > 0.1) {
 					double speedInMinutesPerKm = (1000 / 60) / currentSpeed;
-					textView.setText(String.format("Current speed (Minutes to run a km): %.2f", speedInMinutesPerKm));
-					// Faster means smaller value in this case
+                    textView.setText(String.format("Speed: %.2f", speedInMinutesPerKm));
+                    // Faster means smaller value in this case
 					if ((speedInMinutesPerKm <= speed) && (previousSpeedInMinutesPerKm > speed)) {
 						textView.setTextColor(Color.GREEN);
 						
